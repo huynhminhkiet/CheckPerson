@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_scan_person"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_bg"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.minhkiet.checkperson.activity.ScanPersonActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/pr_scanning"
+        android:layout_margin="@dimen/margin_gr_preview"
+        android:background="@color/bg_gr_preview">
+
+        <TextView
+            android:id="@+id/tv_person"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:text="@string/tv_person"
+            android:textSize="@dimen/tv_person_size" />
+
+        <ImageView
+            android:id="@+id/iv_preview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/jangmi" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/pr_scanning"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/margin_gr_preview"
+        android:paddingTop="@dimen/margin_gr_preview">
+
+        <TextView
+            android:id="@+id/tv_gender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/tv_result_margin_top"
+            android:background="#ffffff"
+            android:gravity="center"
+            android:minWidth="@dimen/tv_result_minwidtn"
+            android:padding="@dimen/tv_result_padding"
+            android:text="Gender: male"
+            android:textSize="@dimen/tv_result_size" />
+
+        <TextView
+            android:id="@+id/tv_age"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/tv_gender"
+            android:layout_marginTop="@dimen/tv_result_margin_top"
+            android:background="#ffffff"
+            android:gravity="center"
+            android:minWidth="@dimen/tv_result_minwidtn"
+            android:padding="@dimen/tv_result_padding"
+            android:text="Age: 20"
+            android:textSize="@dimen/tv_result_size" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_age"
+            android:layout_marginTop="@dimen/tv_result_margin_top"
+            android:background="#ffffff"
+            android:gravity="center"
+            android:minWidth="@dimen/tv_result_minwidtn"
+            android:padding="@dimen/tv_result_padding"
+            android:text="Name: ko"
+            android:textSize="@dimen/tv_result_size" />
+
+    </RelativeLayout>
+
+    <ProgressBar
+        android:id="@+id/pr_scanning"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/gr_controls"
+        android:layout_marginBottom="@dimen/margin_bottom_scanning"
+        android:indeterminate="true"
+        android:visibility="invisible"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_above="@id/gr_controls"
+        android:text="checkperson D/dalvikvm: VFY: replacing opcode 0x6e at 0x0006"
+        android:textSize="@dimen/tv_result_lagre_size"
+        android:gravity="center"/>
+
+    <LinearLayout
+        android:id="@+id/gr_controls"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_take_picture"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/space_betw_button"
+            android:background="@android:color/transparent"
+            android:text="@string/icon_take_pic"
+            android:textColor="@color/btn_color"
+            android:textSize="@dimen/btn_text_size" />
+
+
+        <Button
+            android:id="@+id/btn_choose_picture"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:text="@string/icon_choose_pic"
+            android:textColor="@color/btn_color"
+            android:textSize="@dimen/btn_text_size" />
+
+    </LinearLayout>
+
+</RelativeLayout>

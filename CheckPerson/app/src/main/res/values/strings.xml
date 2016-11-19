@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">CheckPerson</string>
+    <string name="btn_start">Start</string>
+    <string name="icon_take_pic">&#xf030;</string>
+    <string name="icon_choose_pic">&#xf03e;</string>
+    <string name="tv_person">&#xf183;</string>
+    <string name="api_key">23512deaaa064fb181d75d252aa23776</string>
+</resources>
