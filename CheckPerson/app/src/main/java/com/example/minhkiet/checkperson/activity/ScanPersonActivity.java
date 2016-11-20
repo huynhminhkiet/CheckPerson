@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.util.Log;
 
 import com.example.minhkiet.checkperson.R;
 import com.example.minhkiet.checkperson.interfaces.ScanPersonActivityListener;
@@ -37,7 +38,7 @@ public class ScanPersonActivity extends BaseActivity implements ScanPersonFragme
     @Override
     public void onTakePicture() {
         final Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, MyImageUtils.setImageUri());
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, MyImageUtils.setNewImageUri());
         startActivityForResult(intent, Constants.TAKE_PICTURE_CAMERA_REQUEST);
     }
 
@@ -54,7 +55,7 @@ public class ScanPersonActivity extends BaseActivity implements ScanPersonFragme
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == Constants.TAKE_PICTURE_CAMERA_REQUEST && resultCode == RESULT_OK) {
-            Bitmap bitmap = MyImageUtils.decodeFile(MyImageUtils.getImagePath());
+            Bitmap bitmap = MyImageUtils.decodeFile(MyImageUtils.getImagePathCurrentTake());
             scanPersonActivityListener.onPreviewPicture(bitmap);
         }
 

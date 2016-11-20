@@ -1,9 +1,13 @@
 package com.example.minhkiet.checkperson.utils;
 
+import android.app.Activity;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Environment;
+import android.provider.MediaStore;
+import android.util.Log;
 
 import java.io.File;
 import java.util.Date;
@@ -15,7 +19,7 @@ import java.util.Date;
 public class MyImageUtils {
     private static String imgPath;
 
-    public static Uri setImageUri() {
+    public static Uri setNewImageUri() {
         // Store image in dcim
         File file = new File(Environment.getExternalStorageDirectory() + "/DCIM/", "image" +
                 new Date().getTime() + ".png");
@@ -24,7 +28,7 @@ public class MyImageUtils {
         return imgUri;
     }
 
-    public static String getImagePath() {
+    public static String getImagePathCurrentTake() {
         return imgPath;
     }
 
@@ -35,7 +39,7 @@ public class MyImageUtils {
             o.inJustDecodeBounds = true;
             BitmapFactory.decodeFile(path, o);
             // The new size we want to scale to
-            final int REQUIRED_SIZE = 1000;
+            final int REQUIRED_SIZE = 250;
 
             // Find the correct scale value. It should be the power of 2.
             int scale = 1;
