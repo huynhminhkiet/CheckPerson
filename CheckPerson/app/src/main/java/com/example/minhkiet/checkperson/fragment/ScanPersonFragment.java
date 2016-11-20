@@ -35,7 +35,8 @@ public class ScanPersonFragment extends BaseFragment implements ScanPersonActivi
 
     private ScanPersonFragmentListener scanPersonFragmentListener;
 
-    public ScanPersonFragment() {}
+    public ScanPersonFragment() {
+    }
 
     public static ScanPersonFragment newInstance() {
         ScanPersonFragment scanPersonFragment = new ScanPersonFragment();
@@ -139,5 +140,10 @@ public class ScanPersonFragment extends BaseFragment implements ScanPersonActivi
     @Override
     public void onSetResultCaption(String caption) {
         tvCaption.setText(caption);
+    }
+
+    @Override
+    public void onSetImageWithFace(Bitmap bitmap) {
+        ivPreview.setImageBitmap(bitmap);
     }
 }
