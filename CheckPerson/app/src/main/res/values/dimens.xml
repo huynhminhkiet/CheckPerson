@@ -10,6 +10,7 @@
     <dimen name="tv_result_minwidtn">100dp</dimen>
     <dimen name="tv_result_padding">5dp</dimen>
     <dimen name="tv_result_size">20sp</dimen>
-    <dimen name="tv_result_margin_top">50dp</dimen>
+    <dimen name="tv_result_margin_top">100dp</dimen>
     <dimen name="tv_result_lagre_size">16sp</dimen>
+    <dimen name="tv_result_first_margin_top">30dp</dimen>
 </resources>

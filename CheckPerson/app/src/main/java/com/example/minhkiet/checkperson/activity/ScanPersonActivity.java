@@ -1,14 +1,9 @@
 package com.example.minhkiet.checkperson.activity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
-import android.widget.Toast;
 
 import com.example.minhkiet.checkperson.R;
 import com.example.minhkiet.checkperson.interfaces.ScanPersonActivityListener;
@@ -19,14 +14,11 @@ import com.example.minhkiet.checkperson.utils.AppUtils;
 import com.example.minhkiet.checkperson.utils.Constants;
 import com.example.minhkiet.checkperson.utils.MyImageUtils;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.Date;
 
 public class ScanPersonActivity extends BaseActivity implements ScanPersonFragmentListener {
 
     private ScanPersonActivityListener scanPersonActivityListener;
-
 
     @Override
     protected int getLayoutInstance() {
@@ -42,28 +34,38 @@ public class ScanPersonActivity extends BaseActivity implements ScanPersonFragme
         AppUtils.addNewFragment(this, R.id.container, scanPersonFragment);
     }
 
-    public static Intent newIntent(Context context) {
-        Intent intent = new Intent(context, ScanPersonActivity.class);
-        return intent;
-    }
-
     @Override
     public void onTakePicture() {
         final Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, MyImageUtils.setImageUri());
-        startActivityForResult(intent, Constants.PICK_PICTURE_CAMERA_REQUEST);
+        startActivityForResult(intent, Constants.TAKE_PICTURE_CAMERA_REQUEST);
+    }
+
+    @Override
+    public void onPickPicture() {
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType("image/*");
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"),
+                Constants.PICK_PICTURE_REQUEST_CODE);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == Constants.PICK_PICTURE_CAMERA_REQUEST && resultCode == RESULT_OK) {
-            Bitmap bitmap =  MyImageUtils.decodeFile(MyImageUtils.getImagePath());
+        if (requestCode == Constants.TAKE_PICTURE_CAMERA_REQUEST && resultCode == RESULT_OK) {
+            Bitmap bitmap = MyImageUtils.decodeFile(MyImageUtils.getImagePath());
             scanPersonActivityListener.onPreviewPicture(bitmap);
         }
+
+        if (requestCode == Constants.PICK_PICTURE_REQUEST_CODE && resultCode == RESULT_OK) {
+            Uri selectedPicture = data.getData();
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedPicture);
+                scanPersonActivityListener.onPreviewPicture(bitmap);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
-
-
-
 }

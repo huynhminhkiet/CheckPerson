@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.minhkiet.checkperson.R;
 import com.example.minhkiet.checkperson.asynctask.ScanAsynctask;
+import com.example.minhkiet.checkperson.interfaces.ScanAsynctaskListener;
 import com.example.minhkiet.checkperson.interfaces.ScanPersonActivityListener;
 import com.example.minhkiet.checkperson.interfaces.ScanPersonFragmentListener;
 import com.example.minhkiet.checkperson.base.BaseFragment;
@@ -21,11 +22,12 @@ import com.example.minhkiet.checkperson.base.BaseFragment;
  * Created by minhkiet on 19/11/2016
  */
 
-public class ScanPersonFragment extends BaseFragment implements ScanPersonActivityListener {
+public class ScanPersonFragment extends BaseFragment implements ScanPersonActivityListener, ScanAsynctaskListener {
 
-    private Button btnTakePicture, btnChoosePicture;
+    private Button btnTakePicture, btnPickPicture;
 
     private TextView tvPerson;
+    private TextView tvName, tvGender, tvAge, tvCaption;
 
     private ProgressBar progressBar;
 
@@ -58,8 +60,14 @@ public class ScanPersonFragment extends BaseFragment implements ScanPersonActivi
             }
         });
 
-        btnChoosePicture = (Button) v.findViewById(R.id.btn_choose_picture);
-        btnChoosePicture.setTypeface(font);
+        btnPickPicture = (Button) v.findViewById(R.id.btn_choose_picture);
+        btnPickPicture.setTypeface(font);
+        btnPickPicture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                scanPersonFragmentListener.onPickPicture();
+            }
+        });
 
         tvPerson = (TextView) v.findViewById(R.id.tv_person);
         tvPerson.setTypeface(font);
@@ -71,6 +79,11 @@ public class ScanPersonFragment extends BaseFragment implements ScanPersonActivi
         progressBar = (ProgressBar) v.findViewById(R.id.pr_scanning);
         progressBar.getIndeterminateDrawable().setColorFilter(Color.parseColor("#219187"),
                 PorterDuff.Mode.MULTIPLY);
+
+        tvName = (TextView) v.findViewById(R.id.tv_name);
+        tvGender = (TextView) v.findViewById(R.id.tv_gender);
+        tvAge = (TextView) v.findViewById(R.id.tv_age);
+        tvCaption = (TextView) v.findViewById(R.id.tv_caption);
     }
 
     public void setScanPersonListener(ScanPersonFragmentListener listener) {
@@ -83,10 +96,48 @@ public class ScanPersonFragment extends BaseFragment implements ScanPersonActivi
             tvPerson.setVisibility(View.INVISIBLE);
             ivPreview.setVisibility(View.VISIBLE);
             ivPreview.setImageBitmap(bitmap);
-            ScanAsynctask imageDescribeAsynctask = new ScanAsynctask(getActivity(), bitmap);
+            ScanAsynctask imageDescribeAsynctask = new ScanAsynctask(this, bitmap);
             imageDescribeAsynctask.execute();
         } else {
             Toast.makeText(getActivity(), "Bitmap null!", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    public void onSetResultVisible(boolean b) {
+        int resultVisibility = View.INVISIBLE, progressBarVisibility = View.VISIBLE;
+        if (b) {
+            resultVisibility = View.VISIBLE;
+            progressBarVisibility = View.INVISIBLE;
+        } else {
+            tvName.setVisibility(resultVisibility);
+            tvGender.setVisibility(resultVisibility);
+            tvAge.setVisibility(resultVisibility);
+        }
+        tvCaption.setVisibility(resultVisibility);
+        progressBar.setVisibility(progressBarVisibility);
+    }
+
+    @Override
+    public void onSetResultName(String name) {
+        tvName.setText("Name: " + name);
+        tvName.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onSetResultGender(String gender) {
+        tvGender.setText("Gender: " + gender);
+        tvGender.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onSetResultAge(String age) {
+        tvAge.setText("Age: " + age);
+        tvAge.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onSetResultCaption(String caption) {
+        tvCaption.setText(caption);
     }
 }

@@ -30,8 +30,6 @@ public class RecognizeCelebritiesApi {
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
         ByteArrayInputStream inputStream = new ByteArrayInputStream(outputStream.toByteArray());
         AnalysisInDomainResult analysisResult = mRestClient.analyzeImageInDomain(inputStream, model);
-//        String result = mGson.toJson(analysisResult);
-//        Log.d(TAG, "processVisionService: " + result);
         if (analysisResult.result.get("celebrities").getAsJsonArray().size() > 0)
            return analysisResult.result.get("celebrities").getAsJsonArray().get(0).getAsJsonObject().get("name").getAsString();
         return "Unknow";

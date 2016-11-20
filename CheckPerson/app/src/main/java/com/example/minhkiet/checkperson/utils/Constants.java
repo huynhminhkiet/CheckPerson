@@ -5,5 +5,6 @@ package com.example.minhkiet.checkperson.utils;
  */
 
 public class Constants {
-    public static final int PICK_PICTURE_CAMERA_REQUEST = 101;
+    public static final int TAKE_PICTURE_CAMERA_REQUEST = 101;
+    public static final int PICK_PICTURE_REQUEST_CODE = 102;
 }
